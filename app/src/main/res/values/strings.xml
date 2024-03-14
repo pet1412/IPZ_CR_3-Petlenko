@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">IPZ_CW_4</string>
+
+    <string name="name_1">Вийти на прогулянку</string>
+    <string name="name_2">Книжку читати</string>
+    <string name="name_3">10 раз присідати</string>
+    <string name="name_4">Мязи качати</string>
+    <string name="name_5">Богу молитись</string>
+
+
 </resources>
