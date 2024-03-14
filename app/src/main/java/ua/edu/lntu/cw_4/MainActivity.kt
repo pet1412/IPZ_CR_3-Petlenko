@@ -20,6 +20,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.TopAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -32,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -80,15 +84,17 @@ fun GreetingPreview() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Screen1(navController: NavController) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                contentColor = Color.Yellow,
-                backgroundColor = Color.Yellow,
+            CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Tasks")
+                    Text(
+                        text = "Tasks",
+                        fontSize = 24.sp
+                    )
             })
         }
     ) {
@@ -111,8 +117,12 @@ fun Screen1(navController: NavController) {
 
 @Composable
 fun ItemsTask(id: Int, navController: NavController){
+    val context = LocalContext.current
+    val nameRes = "name_$id"
+    val resourceId = context.resources.getIdentifier(nameRes, "string", context.packageName)
     var checkBoxState by remember{ mutableStateOf(true) }
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .background(
                 when(checkBoxState){
@@ -131,7 +141,7 @@ fun ItemsTask(id: Int, navController: NavController){
            modifier =  Modifier
                .padding(start = 12.dp)
        ) {
-           Text(text = "$id")
+           Text(text = context.resources.getString(resourceId))
            Spacer(modifier = Modifier.width(12.dp))
            Checkbox(checked = checkBoxState, onCheckedChange = {
                checkBoxState = !checkBoxState
