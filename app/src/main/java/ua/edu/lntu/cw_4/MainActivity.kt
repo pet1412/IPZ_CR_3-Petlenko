@@ -120,7 +120,13 @@ fun ItemsTask(id: Int, navController: NavController){
     val context = LocalContext.current
     val nameRes = "name_$id"
     val resourceId = context.resources.getIdentifier(nameRes, "string", context.packageName)
-    var checkBoxState by remember{ mutableStateOf(true) }
+    var checkBoxState by remember{ mutableStateOf(false) }
+    var colorText =
+        when(checkBoxState){
+            true -> Color.Black
+            false -> Color.White
+        }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -141,7 +147,10 @@ fun ItemsTask(id: Int, navController: NavController){
            modifier =  Modifier
                .padding(start = 12.dp)
        ) {
-           Text(text = context.resources.getString(resourceId))
+           Text(
+               text = context.resources.getString(resourceId),
+               color = colorText
+               )
            Spacer(modifier = Modifier.width(12.dp))
            Checkbox(checked = checkBoxState, onCheckedChange = {
                checkBoxState = !checkBoxState
